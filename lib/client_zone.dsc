@@ -22,10 +22,10 @@ client_zone_store:
     - foreach <[set1]> key:where as:material1:
         - define material2 <[set2].get[<[where]>]>
         - if <[material1]> != <[material2]>:
-            - define difference_map <[difference_map].with[<[where]>].as[<[material1]>|<[material2]>]>
+            - define difference_map <[difference_map].with[<[where]>].as[<list[<[material1]>|<[material2]>]>]>
     # store
     - define client_zones <server.flag[client_zone].if_null[<map[]>]>
-    - flag <server> client_zone:<[client_zones].with[<[world]>,<[id]>].as[<[difference_map]>]>
+    - flag server client_zone:<[client_zones].with[<[world]>,<[id]>].as[<[difference_map]>]>
 
 # deletes a client zone and reverts all clientside blocks related to it to serverside values
 client_zone_delete:
@@ -47,7 +47,7 @@ client_zone_delete:
             - flag <[player]> client_zone:<[player_client_zones].exclude[<[world]>,<[id]>]>
     # clear server state
     - define client_zones <server.flag[client_zone]>
-    - flag <server> client_zone:<[client_zones].exclude[<[world]>,<[id]>]>
+    - flag server client_zone:<[client_zones].exclude[<[world]>,<[id]>]>
 
 #
 # Note:
@@ -66,7 +66,7 @@ client_zone_player_close:
     type: task
     definitions: player|world|id
     script:
-    - define difference_map <server.flag[client_zone].get[<[world]>].get[<[id]>].if_null[null]>
+    - define difference_map <server.flag[client_zone].get[<[world]>,<[id]>].if_null[null]>
     - if <[difference_map]> == null:
         - debug ERROR "Tried to show inexistent client zone <[world]>,<[id]> to <[player].name>."
         - stop
@@ -75,7 +75,7 @@ client_zone_player_close:
         - define material <[materials].get[1]>
         - showfake <[material]> <[where]> players:<[player]> duration:2147483647s
     # mark their state as FALSE
-    - flag <[player]> client_zone:<[player_client_zones].with[<[world]>,<[id]>].as[false]>
+    - flag <[player]> client_zone:<[player_client_zones].if_null[<map[]>].with[<[world]>,<[id]>].as[false]>
 
 # shows the open state (state 2) of a certain client zone to a player
 client_zone_player_open:
@@ -83,7 +83,7 @@ client_zone_player_open:
     type: task
     definitions: player|world|id
     script:
-    - define difference_map <server.flag[client_zone].get[<[world]>].get[<[id]>].if_null[null]>
+    - define difference_map <server.flag[client_zone].get[<[world]>,<[id]>].if_null[null]>
     - if <[difference_map]> == null:
         - debug ERROR "Tried to show inexistent client zone <[world]>,<[id]> to <[player].name>."
         - stop
@@ -92,7 +92,7 @@ client_zone_player_open:
         - define material <[materials].get[2]>
         - showfake <[material]> <[where]> players:<[player]> duration:2147483647s
     # mark their state as TRUE
-    - flag <[player]> client_zone:<[player_client_zones].with[<[world]>,<[id]>].as[true]>
+    - flag <[player]> client_zone:<[player_client_zones].if_null[<map[]>].with[<[world]>,<[id]>].as[true]>
 
 
 # shows the true serverside state of a client zone to a player
@@ -101,7 +101,7 @@ client_zone_player_reveal_serverside:
     type: task
     definitions: player|world|id
     script:
-    - define difference_map <server.flag[client_zone].get[<[world]>].get[<[id]>].if_null[null]>
+    - define difference_map <server.flag[client_zone].get[<[world]>,<[id]>].if_null[null]>
     - if <[difference_map]> == null:
         - debug ERROR "Tried to show inexistent client zone <[world]>,<[id]> to <[player].name>."
         - stop
@@ -109,7 +109,7 @@ client_zone_player_reveal_serverside:
     - foreach <[difference_map]> key:where:
         - showfake cancel <[where]> players:<[player]>
     # flip state
-    - flag <[player]> client_zone:<[player_client_zones].exclude[<[world]>,<[id]>]>
+    - flag <[player]> client_zone:<[player_client_zones].if_null[<map[]>].exclude[<[world]>,<[id]>]>
 
 # tries to efficiently update client zones for a player
 client_zone_update:
@@ -129,6 +129,7 @@ client_zone_update:
                 - run client_zone_player_open def.player:<[player]> def.world:<[world]> def.id:<[id]>
 
 # handles the persistence of client zones
+# this is ALMOST not required, but server restarts still break persistence.
 client_zone_persistence:
     debug: false
     type: world
