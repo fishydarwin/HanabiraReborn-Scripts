@@ -2,7 +2,7 @@ quests_quest_example:
     debug: false
     type: data
     # This is used in messages and GUI sometimes
-    name: Example Quest
+    name: Example Quest test
     description: This quest is an example of what a quest should look like
     # The start script is called right before the quest begins.
     start_script: quests_quest_example_start
