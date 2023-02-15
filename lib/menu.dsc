@@ -5,6 +5,7 @@
 
 # opens a menu with a title, of size, based on the contents.
 # the size must be a multiple of 9
+#
 # the contents should be a map pairing the slot to three keys
 # the 'item' key is the item's display in the menu
 # the 'script' key is the script to call when clicked
@@ -12,10 +13,13 @@
 # if the script is null, then no script is called on interaction
 # if the definitions are null, the script is called without definitions
 # at the end, after opening, this task determines the opened inventory.
+#
+# the fill argument can be ommitted, or is an item which fills any
+# slots not specified in the contents map
 menu_open:
     debug: false
     type: task
-    definitions: player|title|size|contents
+    definitions: player|title|size|contents|fill
     script:
     - define display_key <element[menu].to_secret_colors>
     - define inventory <inventory[generic[title=<[display_key]><&r><[title]>;size=<[size]>]]>
@@ -35,6 +39,11 @@ menu_open:
             - flag <[item]> __menu_definitions:<[script]>
         # set in inventory
         - inventory set slot:<[slot]> origin:<[item]> destination:<[inventory]>
+    # has fill attribute?
+    - if <[fill].if_null[null]> != null:
+        - repeat <[size]> as:slot:
+            - if !<[contents].contains[<[slot]>]>:
+                - inventory set slot:<[slot]> origin:<[fill]> destination:<[inventory]>
     # open inventory and return
     - inventory open player:<[player]> destination:<[inventory]>
     - determine <[inventory]>
