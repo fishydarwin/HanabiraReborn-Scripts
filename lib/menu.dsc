@@ -47,7 +47,7 @@ menu_is:
     definitions: inventory
     script:
     - define display_key <[inventory].title.substring[1,16].if_null[null]>
-    - determine <[display_key]> != menu
+    - determine <[display_key].equals[menu]>
 
 # determines the title of a menu ignoring its display key
 # this also strips any colors to avoid annoyances
