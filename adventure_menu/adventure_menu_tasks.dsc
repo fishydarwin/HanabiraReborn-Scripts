@@ -11,6 +11,8 @@ adventure_menu_open:
     # let's make sure no inventory is open
     - run adventure_menu_close def.player:<[player]>
     # ok good
+    # let's run a sound effect just cus
+    - playsound <[player].location> <[player]> sound:block_chest_open
     #
     # let's define some items
     #
@@ -72,6 +74,8 @@ adventure_menu_show_stats:
     script:
     # first let's close the menu
     - run adventure_menu_close def.player:<[player]>
+    # then we can play a sound
+    - playsound <[player].location> <[player]> sound:block_note_block_pling
     # ok fill the slots
     - definemap contents:
         11:
@@ -95,6 +99,8 @@ adventure_menu_show_quests:
     script:
     # first let's close the menu
     - run adventure_menu_close def.player:<[player]>
+    # sound
+    - playsound <[player].location> <[player]> sound:block_note_block_pling
     # ok fill the slots
     - definemap contents:
         11:
@@ -107,5 +113,19 @@ adventure_menu_show_quests:
             script: adventure_menu_open
             definitions:
                 player: <[player]>
+    # quest_slot first slot that will be empty is 12
+    - define quest_slot 12
+    # the space is a 7 by 4 "table"
+    - repeat 4 as:row:
+      - repeat 7 as:column:
+        # define your item here...
+        - definemap quest_item:
+            item: air
+        # update the contents
+        - define contents <[contents].with[<[quest_slot]>].as[<[quest_item]>]>
+        # move to the next slot to the right
+        - define quest_slot <[quest_slot].add[1]>
+      # avoid the borders: after slot 17 next is 20, so add 3
+      - define quest_slot <[quest_slot].add[3]>
     # ok open menu
     - run menu_open def.player:<[player]> "def.title:Completed Quests" def.size:54 def.contents:<[contents]> def.fill:adventure_menu_fill_item
