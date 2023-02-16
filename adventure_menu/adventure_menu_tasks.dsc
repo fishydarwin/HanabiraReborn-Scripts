@@ -11,8 +11,6 @@ adventure_menu_open:
     # let's make sure no inventory is open
     - run adventure_menu_close def.player:<[player]>
     # ok good
-    # let's run a sound effect just cus
-    - playsound <[player].location> <[player]> sound:block_chest_open
     #
     # let's define some items
     #
@@ -74,8 +72,6 @@ adventure_menu_show_stats:
     script:
     # first let's close the menu
     - run adventure_menu_close def.player:<[player]>
-    # then we can play a sound
-    - playsound <[player].location> <[player]> sound:block_note_block_pling
     # ok fill the slots
     - definemap contents:
         11:
@@ -99,8 +95,6 @@ adventure_menu_show_quests:
     script:
     # first let's close the menu
     - run adventure_menu_close def.player:<[player]>
-    # sound
-    - playsound <[player].location> <[player]> sound:block_note_block_pling
     # ok fill the slots
     - definemap contents:
         11:
@@ -114,7 +108,7 @@ adventure_menu_show_quests:
             definitions:
                 player: <[player]>
     # quest_slot first slot that will be empty is 12
-    - define quest_slot 12
+    - define quest_slot 10
     # the space is a 7 by 4 "table"
     - repeat 4 as:row:
       - repeat 7 as:column:
