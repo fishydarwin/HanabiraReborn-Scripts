@@ -129,7 +129,7 @@ adventure_menu_show_quests:
     - foreach <[player].flag[quests_complete]> as:quest:
         - define quest_data <script[<[quest]>]>
         - define quest_material <item[<[quest_data].data_key[gui_material]>]>
-        - adjust def:quest_item "display:<&d><[quest_data].data_key[name]>"
+        - adjust def:quest_material "display:<&d><[quest_data].data_key[name]>"
         - definemap quest_item:
             item: <[quest_material]>
         # merge
