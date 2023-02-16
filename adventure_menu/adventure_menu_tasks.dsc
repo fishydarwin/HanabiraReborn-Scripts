@@ -61,7 +61,7 @@ adventure_menu_not_implemented:
     type: task
     definitions: player
     script:
-    - playsound <[player].location> <[player]> sound:entity_enderman_teleport
+    - playsound <[player].location> <[player]> sound:entity_enderman_teleport pitch:0.5
     - narrate "<&c>Sorry, this is not implemented yet." targets:<[player]>
 
 # this is going to open up the stats menu
