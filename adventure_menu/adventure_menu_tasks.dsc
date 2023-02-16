@@ -127,9 +127,9 @@ adventure_menu_show_quests:
     - definemap more_contents:
         11:
             item: <item[adventure_menu_null_item]>
-              script: adventure_menu_not_implemented
-              definitions:
-                  player: <[player]>
+            script: adventure_menu_not_implemented
+            definitions:
+                player: <[player]>
         # etc..
     # merge
     - define contents <[contents].include[<[more_contents]>]>
