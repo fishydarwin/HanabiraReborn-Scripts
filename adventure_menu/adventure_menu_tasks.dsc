@@ -108,7 +108,7 @@ adventure_menu_show_quests:
             definitions:
                 player: <[player]>
     # quest_slot first slot that will be empty is 12
-    - define quest_slot 10
+    - define quest_slot 11
     # the space is a 7 by 4 "table"
     - repeat 4 as:row:
       - repeat 7 as:column:
