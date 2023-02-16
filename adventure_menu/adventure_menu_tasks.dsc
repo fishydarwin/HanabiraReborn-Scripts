@@ -125,7 +125,7 @@ adventure_menu_show_quests:
         - define contents <[contents].with[<[quest_slot]>].as[<[quest_item]>]>
         # move to the next slot to the right
         - define quest_slot <[quest_slot].add[1]>
-      # avoid the borders: after slot 17 next is 20, so add 3
-      - define quest_slot <[quest_slot].add[3]>
+      # avoid the borders: after slot 17 next is 20, so add 2
+      - define quest_slot <[quest_slot].add[2]>
     # ok open menu
     - run menu_open def.player:<[player]> "def.title:Completed Quests" def.size:54 def.contents:<[contents]> def.fill:adventure_menu_fill_item
