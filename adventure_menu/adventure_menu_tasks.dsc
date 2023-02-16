@@ -33,19 +33,19 @@ adventure_menu_open:
             item: <[player_head]>
             script: adventure_menu_show_stats
             definitions:
-                player: <[player]>
+                player: <player>
         15:
             item: <[enchanted_book]>
             script: adventure_menu_show_quests
             definitions:
-                player: <[player]>
+                player: <player>
         16:
             item: <[filled_map]>
             script: adventure_menu_not_implemented
             definitons:
-                player: <[player]>
+                player: <player>
     # let's open this bad boy up
-    - run menu_open def.player:<player> "def.title:Adventure Menu" def.size:27 def.contents:<[contents]> def.fill:adventure_menu_fill_item
+    - run menu_open def.player:<[player]> "def.title:Adventure Menu" def.size:27 def.contents:<[contents]> def.fill:adventure_menu_fill_item
 
 # close this bad boy
 adventure_menu_close:
@@ -78,12 +78,12 @@ adventure_menu_show_stats:
             item: adventure_menu_null_item
             script: adventure_menu_not_implemented
             definitions:
-                player: <[player]>
+                player: <player>
         24:
             item: adventure_menu_return_item
             script: adventure_menu_open
             definitions:
-                player: <[player]>
+                player: <player>
     # ok open menu
     - run menu_open def.player:<player> "def.title:Your Stats" def.size:27 def.contents:<[contents]> def.fill:adventure_menu_fill_item
 
@@ -101,11 +101,11 @@ adventure_menu_show_quests:
             item: adventure_menu_null_item
             script: adventure_menu_not_implemented
             definitions:
-                player: <[player]>
+                player: <player>
         50:
             item: adventure_menu_return_item
             script: adventure_menu_open
             definitions:
-                player: <[player]>
+                player: <player>
     # ok open menu
-    - run menu_open def.player:<player> "def.title:Completed Quests" def.size:54 def.contents:<[contents]> def.fill:adventure_menu_fill_item
+    - run menu_open def.player:<[player]> "def.title:Completed Quests" def.size:54 def.contents:<[contents]> def.fill:adventure_menu_fill_item
