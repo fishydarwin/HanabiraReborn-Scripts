@@ -121,5 +121,17 @@ adventure_menu_show_quests:
         - define quest_slot <[quest_slot].add[1]>
       # avoid the borders: after slot 17 next is 20, so add 2
       - define quest_slot <[quest_slot].add[2]>
+    #
+    ## ADDING OTHER DATA NOW
+    #
+    - definemap more_contents:
+        11:
+            item: <item[adventure_menu_null_item]>
+              script: adventure_menu_not_implemented
+              definitions:
+                  player: <[player]>
+        # etc..
+    # merge
+    - define contents <[contents].include[<[more_contents]>]>
     # ok open menu
     - run menu_open def.player:<[player]> "def.title:Completed Quests" def.size:54 def.contents:<[contents]> def.fill:adventure_menu_fill_item
