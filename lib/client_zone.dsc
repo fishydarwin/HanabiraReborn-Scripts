@@ -112,7 +112,7 @@ client_zone_player_reveal_serverside:
     - flag <[player]> client_zone:<[player_client_zones].if_null[<map[]>].exclude[<[world]>,<[id]>]>
 
 # tries to efficiently update client zones for a player
-client_zone_update:
+client_zone_player_update:
     debug: false
     type: task
     defintions: player

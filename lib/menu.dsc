@@ -21,8 +21,8 @@ menu_open:
     type: task
     definitions: player|title|size|contents|fill
     script:
-    - define display_key <element[menu].to_secret_colors>
-    - define inventory <inventory[generic[title=<[display_key]><&r><[title]>;size=<[size]>]]>
+    - define display_key <element[menu].to_secret_colors.split[<&ss>].remove[1].parse_tag[<&ss><[parse_value]><&sp>].separated_by[]>
+    - define inventory <inventory[generic[title=<[title]><[display_key]>;size=<[size]>]]>
     # fill
     - foreach <[contents]> key:slot as:data:
         - define item <[data].get[item].if_null[null]>
@@ -34,9 +34,9 @@ menu_open:
         - define definitions <[data].get[definitions].if_null[null]>
         # flag item accordingly
         - if <[script]> != null:
-            - flag <[item]> __menu_script:<[script]>
+            - flag <[item]> _menu_script:<[script]>
         - if <[definitions]> != null:
-            - flag <[item]> __menu_definitions:<[script]>
+            - flag <[item]> _menu_definitions:<[definitions]>
         # set in inventory
         - inventory set slot:<[slot]> origin:<[item]> destination:<[inventory]>
     # has fill attribute?
@@ -55,7 +55,7 @@ menu_is:
     type: procedure
     definitions: inventory
     script:
-    - define display_key <[inventory].title.substring[1,16].if_null[null]>
+    - define display_key <[inventory].title.replace[<&sp>].with[].substring[<[inventory].title.length.sub[23]>].from_secret_colors.if_null[null]>
     - determine <[display_key].equals[menu]>
 
 # determines the title of a menu ignoring its display key
@@ -66,7 +66,7 @@ menu_title:
     type: procedure
     definitions: inventory
     script:
-    - determine <[inventory].title.substring[19].strip_color.if_null[Unknown]>
+    - determine <[inventory].title.substring[0,<[inventory].title.length.sub[23]>].strip_color.if_null[Unknown]>
 
 # handles basic clicks in menu inventories
 menu_click_handler:
@@ -87,9 +87,9 @@ menu_click_handler:
         - if <context.raw_slot> > <context.inventory.size>:
             - stop
         # handle click if any
-        - define script <context.item.flag[__menu_script].if_null[null]>
+        - define script <context.item.flag[_menu_script].if_null[null]>
         - if <[script]> != null:
-            - define definitions <context.item.flag[__menu_definitions].if_null[null]>
+            - define definitions <context.item.flag[_menu_definitions].if_null[null]>
             - if <[definitions]> == null:
                 # run plain script
                 - run <[script]>
