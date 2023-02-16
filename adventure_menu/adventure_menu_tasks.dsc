@@ -127,14 +127,20 @@ adventure_menu_show_quests:
     # redefine quest_slot as 11
     - define quest_slot 11
     - foreach <[player].flag[quests_complete]> as:quest:
+        # all data about the quest
         - define quest_data <script[<[quest]>]>
+        # what material should we show?
         - define quest_material <item[<[quest_data].data_key[gui_material]>]>
+        # let's give it a name!
         - adjust def:quest_material "display:<&d><[quest_data].data_key[name]>"
         - definemap quest_item:
             item: <[quest_material]>
         # merge
         - define contents <[contents].with[<[quest_slot]>].as[<[quest_item]>]>
-        # add
         - define quest_slot <[quest_slot].add[1]>
+        # if the slot divides 9 e.g. 9, 18, 27 etc. it's on the right border
+        - if <[quest_slot].mod[9]> == 0:
+            # we add 2 if it's on the border to correct
+            - define quest_slot <[quest_slot].add[2]>
     # ok open menu
     - run menu_open def.player:<[player]> "def.title:Completed Quests" def.size:54 def.contents:<[contents]> def.fill:adventure_menu_fill_item
