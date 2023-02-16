@@ -133,7 +133,7 @@ adventure_menu_show_quests:
         - definemap quest_item:
             item: <[quest_material]>
         # merge
-        - define contents <[contents].include[<[quest_item]>]>
+        - define contents <[contents].with[<[quest_slot]>].as[<[quest_item]>]>
         # add
         - define quest_slot <[quest_slot].add[1]>
     # ok open menu
