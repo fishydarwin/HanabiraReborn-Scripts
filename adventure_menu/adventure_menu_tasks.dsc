@@ -124,13 +124,16 @@ adventure_menu_show_quests:
     #
     ## ADDING OTHER DATA NOW
     #
+    # redefine quest_slot as 11
+    - define quest_slot 11
     - definemap more_contents:
-        11:
-            item: <item[adventure_menu_null_item]>
-            script: adventure_menu_not_implemented
-            definitions:
-                player: <[player]>
-        # etc..
+        - foreach <[player].flag[quests_complete]> as:quest:
+            - define quest_data <script[<[quest]>]>
+            - define quest_name <[quest_data].data_key[name]>
+            - define quest_item <item[<[quest_data].data_key[gui_material]>]>
+            - adjust def:quest_item "display:<&d><[quest_name]>"
+            <[quest_slot]>:
+                item: <[quest_item]>
     # merge
     - define contents <[contents].include[<[more_contents]>]>
     # ok open menu
