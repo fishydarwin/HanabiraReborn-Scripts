@@ -42,7 +42,7 @@ adventure_menu_open:
         16:
             item: <[filled_map]>
             script: adventure_menu_not_implemented
-            definitons:
+            definitions:
                 player: <[player]>
     # let's open this bad boy up
     - run menu_open def.player:<[player]> "def.title:Adventure Menu" def.size:27 def.contents:<[contents]> def.fill:adventure_menu_fill_item
@@ -62,7 +62,7 @@ adventure_menu_not_implemented:
     definitions: player
     script:
     - playsound <[player].location> <[player]> sound:entity_enderman_teleport
-    - narrate "<&c>Sorry, this is not implemented yet."
+    - narrate "<&c>Sorry, this is not implemented yet." targets:<[player]>
 
 # this is going to open up the stats menu
 adventure_menu_show_stats:
