@@ -135,7 +135,7 @@ adventure_menu_show_quests:
         - adjust def:quest_material "display:<&d><[quest_data].data_key[name]>"
         # lore
         - define lore <[quest_data].data_key[description]>
-        - define lore <[lore].split_lines_by_width[128].parse_tag[<&7><[parse_value]>]>
+        - define lore <[lore].split_lines_by_width[128].split[<&nl>].parse_tag[<&7><[parse_value]>]>
         - adjust def:quest_material lore:<[lore]>
         # let's finally define this bitch
         - definemap quest_item:
