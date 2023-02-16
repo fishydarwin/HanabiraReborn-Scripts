@@ -79,7 +79,7 @@ adventure_menu_show_stats:
             script: adventure_menu_not_implemented
             definitions:
                 player: <[player]>
-        24:
+        23:
             item: adventure_menu_return_item
             script: adventure_menu_open
             definitions:
