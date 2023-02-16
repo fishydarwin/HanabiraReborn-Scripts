@@ -29,17 +29,17 @@ adventure_menu_open:
     - adjust def:filled_map "lore:<list[<&7>Click to visit your plot.]>"
     # let's define the contents
     - definemap contents:
-        11:
+        12:
             item: <[player_head]>
             script: adventure_menu_show_stats
             definitions:
                 player: <[player]>
-        14:
+        15:
             item: <[enchanted_book]>
             script: adventure_menu_show_quests
             definitions:
                 player: <[player]>
-        15:
+        16:
             item: <[filled_map]>
             script: adventure_menu_not_implemented
             definitons:
@@ -74,12 +74,12 @@ adventure_menu_show_stats:
     - run adventure_menu_close def.player:<[player]>
     # ok fill the slots
     - definemap contents:
-        10:
+        11:
             item: adventure_menu_null_item
             script: adventure_menu_not_implemented
             definitions:
                 player: <[player]>
-        23:
+        24:
             item: adventure_menu_return_item
             script: adventure_menu_open
             definitions:
@@ -97,12 +97,12 @@ adventure_menu_show_quests:
     - run adventure_menu_close def.player:<[player]>
     # ok fill the slots
     - definemap contents:
-        10:
+        11:
             item: adventure_menu_null_item
             script: adventure_menu_not_implemented
             definitions:
                 player: <[player]>
-        49:
+        50:
             item: adventure_menu_return_item
             script: adventure_menu_open
             definitions:
