@@ -26,6 +26,6 @@ adventure_menu_return_item:
     material: player_head
     display name: <&6>Go Back
     lore:
-    - <&7>Return to the main menu!
+    - <&7>Return to the last menu
     mechanisms:
         skull_skin: GoBack|eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWYxMzNlOTE5MTlkYjBhY2VmZGMyNzJkNjdmZDg3YjRiZTg4ZGM0NGE5NTg5NTg4MjQ0NzRlMjFlMDZkNTNlNiJ9fX0=

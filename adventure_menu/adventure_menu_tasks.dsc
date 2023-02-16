@@ -75,12 +75,12 @@ adventure_menu_show_stats:
     # ok fill the slots
     - definemap contents:
         11:
-            item: adventure_menu_null_item
+            item: <item[adventure_menu_null_item]>
             script: adventure_menu_not_implemented
             definitions:
                 player: <[player]>
         23:
-            item: adventure_menu_return_item
+            item: <item[adventure_menu_return_item]>
             script: adventure_menu_open
             definitions:
                 player: <[player]>
@@ -98,12 +98,12 @@ adventure_menu_show_quests:
     # ok fill the slots
     - definemap contents:
         11:
-            item: adventure_menu_null_item
+            item: <item[adventure_menu_null_item]>
             script: adventure_menu_not_implemented
             definitions:
                 player: <[player]>
         50:
-            item: adventure_menu_return_item
+            item: <item[adventure_menu_return_item]>
             script: adventure_menu_open
             definitions:
                 player: <[player]>
