@@ -126,15 +126,15 @@ adventure_menu_show_quests:
     #
     # redefine quest_slot as 11
     - define quest_slot 11
-    - definemap more_contents:
-        - foreach <[player].flag[quests_complete]> as:quest:
-            - define quest_data <script[<[quest]>]>
-            - define quest_name <[quest_data].data_key[name]>
-            - define quest_item <item[<[quest_data].data_key[gui_material]>]>
-            - adjust def:quest_item "display:<&d><[quest_name]>"
-            <[quest_slot]>:
-                item: <[quest_item]>
-    # merge
-    - define contents <[contents].include[<[more_contents]>]>
+    - foreach <[player].flag[quests_complete]> as:quest:
+        - define quest_data <script[<[quest]>]>
+        - define quest_material <item[<[quest_data].data_key[gui_material]>]>
+        - adjust def:quest_item "display:<&d><[quest_data].data_key[name]>"
+        - definemap quest_item:
+            item: <[quest_material]>
+        # merge
+        - define contents <[contents].include[<[quest_item]>]>
+        # add
+        - define quest_slot <[quest_slot].add[1]>
     # ok open menu
     - run menu_open def.player:<[player]> "def.title:Completed Quests" def.size:54 def.contents:<[contents]> def.fill:adventure_menu_fill_item
