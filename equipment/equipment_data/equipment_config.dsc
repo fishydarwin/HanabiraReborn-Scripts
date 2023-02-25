@@ -10,10 +10,17 @@ equipment_config:
             category: held
             show-as: Sword
             allow-duplicates: true
+            modifiers-upon: hand
         greatsword:
             category: held
             show-as: Greatsword
             allow-duplicates: true
+            modifiers-upon: hand
+            vanilla-modifiers:
+                generic_attack_damage:
+                    operation: add_number
+                    amount: 4
+                # todo: this + implementation
         halberd:
             category: held
             show-as: Halberd

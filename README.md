@@ -30,3 +30,8 @@ Modules are more complex systems that make use of libraries and contain proper b
 - module_data: the configuration scripts used by the module
 
 Please retain this structure if you intend to contribute to the project.
+
+## Private functions
+
+To mark private functions use two underscores `__` before your task or procedure scripts.
+Because flags cannot use single underscore `_` markers, you are free to decide what system to use for private flags.
