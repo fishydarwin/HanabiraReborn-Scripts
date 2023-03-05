@@ -9,6 +9,13 @@ When creating the namespaces, prefix them with an integer which represents their
 Some common cases:
 - Dialogues for a quest would go in the **(number)_quests_quest_(quest-name)** folder.
 - Dialogues for some NPC would go in the **0_generic** folder.
+- Dialogues for the NPCs in a specific place might go in the **(number)_(where)** folder.
+
+### Special namespaces
+
+There are two special namespaces:
+- **0_generic** - a namespace where extremely short 1-3 line NPC dialogues usually go.
+- **1_misc** - a namespace where completely unrelated dialogues (easter eggs etc.) live.
 
 ### Naming script files
 
