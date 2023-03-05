@@ -65,6 +65,10 @@ quests_quest_test_a_exit:
     # take items
     - take player:<[player]> item:iron_sword
     - take player:<[player]> item:compass
+    # de-allocate notes to prevent mem-leak
+    - note remove as:quest_<[player].uuid>_playable
+    - note remove as:quest_<[player].uuid>_seinaru_entrance
+    - note remove as:quest_<[player].uuid>_below_bridge
     # clean world
     - wait 3s
     - define worldname quest_worlds/quest_<[player].uuid>
@@ -77,9 +81,13 @@ quests_quest_test_a_clean:
     type: task
     definitions: player
     script:
-    # take itemsu
+    # take items
     - take player:<[player]> item:iron_sword
     - take player:<[player]> item:compass
+    # de-allocate notes to prevent mem-leak
+    - note remove as:quest_<[player].uuid>_playable
+    - note remove as:quest_<[player].uuid>_seinaru_entrance
+    - note remove as:quest_<[player].uuid>_below_bridge
     # clean world
     - define worldname quest_worlds/quest_<[player].uuid>
     - ~run world_container_destroy def.id:<[worldname]> def.template:main
