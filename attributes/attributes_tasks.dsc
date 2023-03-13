@@ -98,6 +98,26 @@ attributes_increment_stat:
     # update
     - run attributes_update def.player:<[player]>
 
+# decrements a player's stat level
+attributes_decrement_stat:
+    debug: false
+    type: task
+    definitions: player|stat
+    script:
+    # find stat
+    - define stat <[stat].to_lowercase>
+    - define level_modifiers_keys <script[attributes_config].data_key[scale-per-level].keys>
+    - if !<[level_modifiers_keys].contains[<[stat]>]>:
+        - stop
+    - if <[stats].get[<[stat]>]> <= 1:
+        - stop
+    # modify stat
+    - define stats <[player].flag[attributes]>
+    - define stats <[stats].with[<[stat]>].as[<[stats].get[<[stat]>].sub[1]>]>
+    - flag <[player]> attributes:<[stats]>
+    # update
+    - run attributes_update def.player:<[player]>
+
 # sets XP to match correct configuration and levels
 # uses some basic maths to correctly display it
 attributes_xp_touch:
