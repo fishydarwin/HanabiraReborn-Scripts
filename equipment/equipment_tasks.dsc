@@ -133,7 +133,19 @@ __equipment_generate_attributes:
     debug: false
     type: task
     script:
-    #TODO: change slot: hand to contextual slot from config.
+    - define itemtype_category <[itemtype_data].get[category]>
+    # default held or hotkey, both do the same
+    - define slot hand
+    - if <[itemtype_category]> == off:
+        - define slot off_hand
+    - else if <[itemtype_category]> == armor-helmet:
+        - define slot head
+    - else if <[itemtype_category]> == armor-chestplate:
+        - define slot chest
+    - else if <[itemtype_category]> == armor-leggings:
+        - define slot legs
+    - else if <[itemtype_category]> == armor-boots:
+        - define slot feet
     # modify each stat based on correct info
     # atk
     - if <[stats].contains[atk]>:
@@ -143,8 +155,7 @@ __equipment_generate_attributes:
                 1:
                     operation: add_number
                     amount: <[itemlevel].mul[<[attack]>]>
-                    slot: hand
-        - adjust def:item remove_attribute_modifiers:<list[generic_attack_damage]>
+                    slot: <[slot]>
         - adjust def:item add_attribute_modifiers:<[attack_map]>
     # def
     - if <[stats].contains[def]>:
@@ -154,19 +165,17 @@ __equipment_generate_attributes:
                 1:
                     operation: add_number
                     amount: <[itemlevel].mul[<[defense]>]>
-                    slot: hand
-        - adjust def:item remove_attribute_modifiers:<list[generic_armor]>
+                    slot: <[slot]>
         - adjust def:item add_attribute_modifiers:<[defense_map]>
     # agi
     - if <[stats].contains[agi]>:
         - define agility <[stats].get[agi].sub[1]>
         - definemap agility_map:
-            generic_armor:
+            generic_movement_speed:
                 1:
                     operation: add_number
                     amount: <[itemlevel].get[agi].mul[<[agility]>]>
-                    slot: hand
-        - adjust def:item remove_attribute_modifiers:<list[generic_movement_speed]>
+                    slot: <[slot]>
         - adjust def:item add_attribute_modifiers:<[agility_map]>
     # end
     - if <[stats].contains[end]>:
@@ -176,10 +185,12 @@ __equipment_generate_attributes:
                 1:
                     operation: add_number
                     amount: <[itemlevel].get[end].mul[<[endurance]>]>
-                    slot: hand
-        - adjust def:item remove_attribute_modifiers:<list[generic_max_health]>
+                    slot: <[slot]>
         - adjust def:item add_attribute_modifiers:<[endurance_map]>
     # dex - nothing required
     # int - nothing required
     # mnd - nothing required
+    # dupe base stats
+    - define default_attribute_map <[item].default_attribute_modifiers[<[slot]>]>
+    - adjust def:item add_attribute_modifiers:<[default_attribute_map]>
     # done

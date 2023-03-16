@@ -12,7 +12,7 @@ quests_world:
             - define quest <script[<player.flag[quests_active].get[id]>]>
             - define cleanup <[quest].data_key[clean_script]>
             - run <[cleanup]> def.player:<player>
-            - flag server quests_clean:<server.flag[quests_clean].if_null[<map[]>].exclude[<[player]>]>
+            - flag server quests_clean:<server.flag[quests_clean].if_null[<map[]>].exclude[<player>]>
         ## clean up on server restart if any left
         after server start:
         - if !<server.flag[quests_clean].if_null[<map[]>].is_empty>:

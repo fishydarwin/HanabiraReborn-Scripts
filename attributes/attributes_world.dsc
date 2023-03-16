@@ -47,7 +47,7 @@ attributes_world:
         - determine cancelled passively
         - remove <context.entity>
         ## projectile damage calculation using DEX
-        on projectile hits entity:entity bukkit_priority:monitor:
+        after projectile hits entity:entity bukkit_priority:monitor:
         # allowed?
         - if <context.cancelled>:
             - stop
@@ -64,10 +64,11 @@ attributes_world:
         - define stats <[player].flag[attributes]>
         - define level <[stats].get[level].sub[1]>
         # modifiers
-        - define level_modifiers <script[attributes_config].data_key[scale_per_level]>
+        - define level_modifiers <script[attributes_config].data_key[scale-per-level]>
         # calculate dexterity
         - define dexterity <[stats].get[dex]>
         - define dexterity <[level_modifiers].get[dex].mul[<[dexterity]>].mul[2]>
         # apply
         - hurt <[dexterity]> <context.hit_entity> cause:projectile source:<[player]>
-        - narrate <[dexterity]>
+        - narrate <[dexterity]> targets:<[player]>
+        - narrate <context.hit_entity.health> targets:<[player]>

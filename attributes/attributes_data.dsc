@@ -29,7 +29,7 @@ attributes_config:
         # 1 point == 1 extra half heart of HP, 1 extra delay of stamina
         end: 2
         # 1 point == 1 extra heart of damage on projectiles
-        dex: 1
+        dex: 1.75
         # 1 point == 1 extra heart of damage on magic
         int: 1
         # 1 point == 1 extra "half armor" worth of magic protection

@@ -42,6 +42,8 @@ world_container_destroy:
     - foreach <[world].players> as:player:
         - teleport <[player]> <[player].location.with_world[<[template_world]>]>
     # destroy all data
+    - foreach <[world].entities> as:entity:
+        - remove <[entity]>
     - adjust <[world]> destroy
     - flag server world_container_all:<server.flag[world_container_all].if_null[<list[]>].exclude[<[id]>]>
     - flag server world_container_loaded:<server.flag[world_container_loaded].if_null[<list[]>].exclude[<[id]>]>

@@ -75,19 +75,19 @@ equipment_config:
             allow-duplicates: true
         ## armor/gear
         helmet:
-            category: armor
+            category: armor-helmet
             show-as: Helmet
             allow-duplicates: true
         chestplate:
-            category: armor
+            category: armor-chestplate
             show-as: Chestplate
             allow-duplicates: true
         leggings:
-            category: armor
+            category: armor-leggings
             show-as: Leggings
             allow-duplicates: true
         boots:
-            category: armor
+            category: armor-boots
             show-as: Boots
             allow-duplicates: true
         ## shield/def

@@ -32,7 +32,9 @@ equipment_world:
                 - determine cancelled passively
                 - run <[hotkey]> def.player:<player>
         # hit
-        on player damages entity:
+        after player damages entity:
+        - if <context.cause> == custom:
+            - stop
         - if !<context.entity.is_living>:
             - stop
         - if <player.item_in_hand.has_flag[equipment_abilities]>:

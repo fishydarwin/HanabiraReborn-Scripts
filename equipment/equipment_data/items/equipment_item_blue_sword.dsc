@@ -22,4 +22,4 @@ equipment_item_blue_sword_hit:
     definitions: player|target|damage
     description: Scales up damage with 20% of ATK stat.
     script:
-    - hurt <[damage].mul[<[player].flag[attributes].get[atk]>].mul[0.2]> <[target]> source:<[player]>
+    - hurt <[damage].mul[<[player].flag[attributes].get[atk]>].mul[0.2]> <[target]> source:<[player]> cause:custom
