@@ -12,8 +12,9 @@ quests_quest_example:
     clean_script: quests_quest_example_clean
     # The steps of the quest - these are ORDERED.
     steps:
-        some_step_1: The description of step 1.
-        some_step_2: The description of step 2.
+        walk_to_bridge: Walk to the bridge by the river!
+        walk_to_fishing_house: Walk to the fishermen's house.
+        waklk_to_town_center: Walk to the center of the town.
         # and so on...
     # The GUI material display & lore is generated automatically
     # The rest you must specify as a mechanism if desired.
@@ -40,7 +41,17 @@ quests_quest_example_clean:
     type: task
     definitions: player
     script:
-    - narrate targets:<[player]> "This script is called on cleanup after crashes or such."
+    # make world
+    - define world_name quests/quest_<[player].uuid>
+    - run world_container_make def.id:<[world_name]> def.template:hanabira
+    # define regions
+    # TODO: add actual coordinates here, not -5,-5,-5 and 5,5,5 lol
+    - note <cuboid[<[world_name]>,-5,-5,-5,10,10,10]> as:quests_<player.uuid>_bridge
+    - note <cuboid[<[world_name]>,-5,-5,-5,10,10,10]> as:quests_<player.uuid>_fishing_house
+    - note <cuboid[<[world_name]>,-5,-5,-5,10,10,10]> as:quests_<player.uuid>_town_center
+    # teleport player
+    # TODO: add actual coordinates here, not 0 0 0 lol
+    - teleport <[player]> <location[0,0,0,<[world_name]>]>
 
 quests_quest_example_handler:
     debug: false
