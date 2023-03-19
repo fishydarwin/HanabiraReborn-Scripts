@@ -33,6 +33,8 @@ attributes_update:
     type: task
     definitions: player
     script:
+    - if !<[player].is_online>:
+        - stop
     # basic stuff
     - define stats <[player].flag[attributes]>
     - define level <[stats].get[level].sub[1]>
@@ -60,7 +62,7 @@ attributes_update:
     # agi
     - define agility <[stats].get[agi].sub[1]>
     - definemap agility_map:
-        generic_armor:
+        generic_movement_speed:
             1:
                 operation: add_number
                 amount: <[level_modifiers].get[agi].mul[<[agility]>]>
@@ -98,6 +100,26 @@ attributes_increment_stat:
     # update
     - run attributes_update def.player:<[player]>
 
+# decrements a player's stat level
+attributes_decrement_stat:
+    debug: false
+    type: task
+    definitions: player|stat
+    script:
+    # find stat
+    - define stat <[stat].to_lowercase>
+    - define level_modifiers_keys <script[attributes_config].data_key[scale-per-level].keys>
+    - if !<[level_modifiers_keys].contains[<[stat]>]>:
+        - stop
+    - if <[stats].get[<[stat]>]> <= 1:
+        - stop
+    # modify stat
+    - define stats <[player].flag[attributes]>
+    - define stats <[stats].with[<[stat]>].as[<[stats].get[<[stat]>].sub[1]>]>
+    - flag <[player]> attributes:<[stats]>
+    # update
+    - run attributes_update def.player:<[player]>
+
 # sets XP to match correct configuration and levels
 # uses some basic maths to correctly display it
 attributes_xp_touch:
@@ -105,6 +127,8 @@ attributes_xp_touch:
     type: task
     definitions: player
     script:
+    - if !<[player].is_online>:
+        - stop
     # define statistics
     - define stats <[player].flag[attributes]>
     - define level <[stats].get[level]>
@@ -143,7 +167,7 @@ attributes_xp_give:
     - define stats <[stats].with[xp].as[<[xp]>]>
     - flag <[player]> attributes:<[stats]>
     # update
-    - run attributes_xp_touch def.player:<player>
+    - run attributes_xp_touch def.player:<[player]>
 
 # takes some XP. no underflow allowed
 attributes_xp_take:
@@ -162,7 +186,7 @@ attributes_xp_take:
     - define stats <[stats].with[xp].as[<[xp]>]>
     - flag <[player]> attributes:<[stats]>
     # update
-    - run attributes_xp_touch def.player:<player>
+    - run attributes_xp_touch def.player:<[player]>
 
 # sets a player's XP
 attributes_level_set:
@@ -179,4 +203,4 @@ attributes_level_set:
     - define stats <[stats].with[level].as[<[level]>]>
     - flag <[player]> attributes:<[stats]>
     # update
-    - run attributes_xp_touch def.player:<player>
+    - run attributes_xp_touch def.player:<[player]>
